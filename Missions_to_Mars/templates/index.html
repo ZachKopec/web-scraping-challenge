@@ -16,15 +16,13 @@
 <body class="text-black" style="background-color:white;">
     <div class="container">
 
-        <!-- Jumbotron -->
-        <div class="jumbotron text-center" style="background-image: url('https://imgix.bustle.com/uploads/shutterstock/2019/7/19/3931f878-cd90-4172-b573-8399fdc6b5ba-shutterstock-1041249343.jpg?w=970&h=546&fit=crop&crop=faces&auto=format&q=70');" >
+        <!-- Top image and scrape button -->
+        <div class="jumbotron text-center" style="background-image: url('https://mars.nasa.gov/system/feature_items/images/6148_Mars_chemist_320x240px.jpg');" >
             <h1 class="display-1 text-white"><strong> Mission to Mars </strong> </h1>
-            <a class="btn btn-lg text-black" style="background-color:aqua;" href="/scrape" role="button">Scrape New
-                Data</a>
+            <a class="btn btn-lg text-black" style="background-color:blue;" href="/scrape" role="button">Scrape New Data</a>
         </div>
 
-        
-        <!-- News Section -->
+        <!-- Article title and body text -->
         <div class="container">
             <h3>Latest Mars News</h3>
             <h6>{{ mars_app.Mars_News_Title }}</h6>
@@ -33,29 +31,30 @@
 
         <div class="container">
             <div class="row">
-                <!-- Left Image-->
+                <!-- Featured image-->
                 <div class="col-lg-8 col-md-8 col-sm-12">
                     <h3>Featured Mars Image</h3>
                     <img src = "{{ mars_app.Mars_Featured_Image }}" style="max-width:100%; max-height: auto;" alt="Mars Featured Image">
                 </div>
 
                 <div class="col-lg-4 col-md-4 col-sm-12">
-                    <!-- Table -->
+                    <!-- Mars facts -->
                     <br>
                     <h3>Mars Facts</h3>
                     <div style="max-width: 450px; max-height: 150px; font-size: 15px; margin-bottom: 65px;">
                         {{ mars_app.Mars_Facts|safe}}
                     </div>
-                </div> <!-- col4 -->
-            </div><!-- Row -->
-        </div><!-- Container -->
+                </div>
+            </div>
+        </div>
 
-        <!-- Cards -->
+        <!-- Hemisphere image holders -->
         <h3 style="padding-top: 50px; margin-top: 100px; text-align: center;">Mars Hemispheres</h3>
         <div class="card-deck">
             <hr>
             <div class="col-md-12">
                 <div class="row">
+                    <!-- Loop through images to display -->
                     {% for item in mars_app.Mars_Hemisphere_Images %}
                     <div class="col-md-6">
                         <div class="card text-white bg-dark" style="margin: 30px;">
@@ -68,15 +67,7 @@
                     {% endfor %}
                 </div>
             </div>
-        </div><!-- Close main container -->
-
-        <!-- Bootstrap JS -->
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" 
-            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" 
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        </div>
 
 </body>
 
