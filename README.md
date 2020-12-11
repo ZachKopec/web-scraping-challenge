@@ -5,4 +5,4 @@ The full script is placed in a function called scrape which is initialized when 
 
 The displayed data is presented in a html web page that utilizes bootstrap to quickly and neatly organize a simple template.
 
-Occasionally an error is thrown when runnning the app.py but when refreshed in the web browser or run again, it is functional.
+Occasionally an error is thrown when running the app.py but when refreshed in the web browser or run again, it is functional.
