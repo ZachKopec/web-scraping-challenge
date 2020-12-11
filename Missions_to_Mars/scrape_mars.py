@@ -1,44 +1,50 @@
-#Dependency
+#Dependencies
 import pandas as pd
 import requests
-
 from bs4 import BeautifulSoup
 from splinter import Browser
 from webdriver_manager.chrome import ChromeDriverManager
 
-#initialyzing the browser
+#Initialize browser
 def init_browser():
-    #load the crome driver
+    #Load chrome driver
     executable_path = {'executable_path': ChromeDriverManager().install()}
     return Browser("chrome", **executable_path, headless=False)
 
 #scraping   
 def scrape():
-    #load the crome driver
+    #Set browser variable to load chrome driver
     browser = init_browser()
     
+    ###First required url to find latest news title and paragraph###
     url = 'https://mars.nasa.gov/news/?page=0&per_page=40&order=publish_date+desc%2Ccreated_at+desc&search=&category=19%2C165%2C184%2C204&blank_scope=Latest'
     browser.visit(url)
-
-    #find latest News Title and Paragraph
     html = browser.html
     soup = BeautifulSoup(html, 'html.parser')
-        
+    
+    #Variables to begin scraping
     arts = soup.find_all('div', class_='content_title')
     bdys = soup.find_all('div', class_='article_teaser_body')
 
+    #Empty lists to hold data
     art_hdr_list = []
     art_bdy_list = []
 
+    #Loop through everything found in 'arts'
     for art in arts:
-            
+        
+        #Variable to find 'a' tags in 'arts'
         mains = art.find_all('a')
             
+        #Loop through 'a' tags in 'mains
         for main in mains:
+            #Set variable of the found text and append in to title list
             title = main.text.strip()
             art_hdr_list.append(title)
             
+    #Loop through everything found in 'bdys'
     for bdy in bdys:
+        #Set variable of the found text and append in to body text list
         body = bdy.text.strip()
         art_bdy_list.append(body)
 
@@ -99,7 +105,8 @@ def scrape():
         "Mars_Facts": html_table,
         "Mars_Hemisphere_Images": hemisphere_img_urls
     }
-    #browser.quit()
+    
+    browser.quit()
     
     return Mars_Hemispheres_data
 
