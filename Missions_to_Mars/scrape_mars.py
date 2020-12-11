@@ -48,31 +48,42 @@ def scrape():
         body = bdy.text.strip()
         art_bdy_list.append(body)
 
+    #Record the first title and body text in variables for usage
     article_hdr_1 = art_hdr_list[0]
     article_bdy_1 = art_bdy_list[0]
 
-    #visit the URL for the JPL Featured Space Image by splinter
+    ###End first url###
+
+    ###Second required url to find featured image###
     url2 = 'https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars'
     browser.visit(url2)
     html2 = browser.html
     soup2 = BeautifulSoup(html2, 'html.parser')
 
-    farts = soup2.find_all('a', class_='button fancybox')
+    #Variable to begin scraping
+    imgs = soup2.find_all('a', class_='button fancybox')
 
-    for fart in farts:
-        img_url = fart["data-fancybox-href"]
-        
+    #Loop through everything found in 'imgs'
+    for img in imgs:
+        #Record image url and combine with base url
+        img_url = img["data-fancybox-href"]
         base_url = 'https://www.jpl.nasa.gov'
-        
         full_img_url = base_url + img_url
+
+    ###End second url###
         
-    #visit the Mars Facts web url
+    ###Third required url to find mars facts###
     url3 = 'https://space-facts.com/mars/'
     browser.visit(url3)
+    html3 = browser.html
+    soup3 = BeautifulSoup(html3, 'html.parser')
     
+    #Read html into variable, convert to dataframe & then to html table
     tables = pd.read_html(url3)
     df = tables[0]
     html_table = df.to_html()
+
+    ###End third url###
 
     #visit the Mars Hemispheres web url
     url4 = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
