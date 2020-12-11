@@ -85,30 +85,38 @@ def scrape():
 
     ###End third url###
 
-    #visit the Mars Hemispheres web url
+    ###forth required url to find mars facts###
     url4 = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
     browser.visit(url4)
     html4 = browser.html
     soup4 = BeautifulSoup(html4, 'html.parser')
 
+    #List to hold hemispher images
     hemisphere_img_urls = []
+    #Base url variable
     base_url = 'https://astrogeology.usgs.gov'
 
+    #Variable to begin scraping
     items = soup4.find_all('div', class_='item')
 
+    #Loop through everything found in 'items'
     for item in items:
+        #Variables to store title and image urls
         title = item.find("h3").text
         img_url = item.find("a",class_="itemLink product-item")["href"]
-        
+        #Visit next portion to get next image
         browser.visit(base_url + img_url)
-        
         image_html = browser.html
         soup5 = BeautifulSoup(image_html, 'html.parser')
-        
+        #Variable to hold image url
         final_img_url = base_url + soup5.find("img", class_="wide-image")["src"]
         
+        #Append image title and url to dictionary
         hemisphere_img_urls.append({"title": title, "image_url": final_img_url})
-        
+
+    ###End forth url###
+    
+    #Dictionary to be exported into html file and mongo database
     Mars_Hemispheres_data = {
         "Mars_News_Title": article_hdr_1,
         "Mars_News_Paragraph": article_bdy_1,
